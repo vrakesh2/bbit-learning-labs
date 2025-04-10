@@ -7,6 +7,28 @@ interface NewsCardProps {
 
 
 function FeaturedNewsCard({ article }: NewsCardProps) {
+
+    return (
+        <div className="featured-news-card">
+            <div className="featured-news-img-div">
+                <img
+                    src={article.image_url}
+                    alt={article.title}
+                    className="featured-news-img"
+                />
+            </div>
+            <div className="featured-news-info">
+                <h2 className="featured-story-title">{article.title}</h2>
+                <p className="featured-story-summary">{article.body}</p>
+                {article.author && <span className="featured-story-author">By {article.author}</span>}
+                {article.url &&
+                    <span className="featured-story-author" >
+                        Via <Link className="origin-link" href={article.url} target="_blank">{article.url}</Link>
+                    </span>
+                }
+            </div>
+        </div>
+    );
     // PART 1: Display a Featured News article
 
     // Using the info about the article passed in as a prop, show:
@@ -18,14 +40,14 @@ function FeaturedNewsCard({ article }: NewsCardProps) {
 
     // Hint: Some classes included in `globals.css` may help with styling.
 
-    return (
-        <>
-            <span className='instruction'>Part 1: Show Featured News</span>
-            <div className="featured-news-card">
-                {/* TODO: Remove the span above and implement "FeaturedNewsCard" */}
-            </div>
-        </>
-    );
+   // return (
+    //    <>
+    //        <span className='instruction'>Part 1: Show Featured News</span>
+    //       <div className="featured-news-card">
+     //           {/* TODO: Remove the span above and implement "FeaturedNewsCard" */}
+      //      </div>
+      //  </>
+   // );
 }
 
 export default FeaturedNewsCard;

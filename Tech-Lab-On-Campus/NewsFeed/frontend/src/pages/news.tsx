@@ -49,24 +49,32 @@ let moreNews: Article[] = [
 ]
 
 export default function News() {
-    // Some helpful info on React states: https://react.dev/reference/react/useState
-    const [articles, setArticles] = useState<Article[]>(moreNews);
-    const [featuredArticle, setFeaturedArticle] = useState<Article>(mainStory);
+    const [articles, setArticles] = useState<Article[]>([]);
+    const [featuredArticle, setFeaturedArticle] = useState<Article | null>(null);
 
-    // PART 4: Fetch the data from the API that the backend partner builds to
-    //         populate real data to the page.
     useEffect(() => {
         const fetchData = async () => {
-            // 1. Fetch the featured article from '/api/news/get-featured-article'
-            // 2. Fetch the news feed data from '/api/news/get-newsfeed'
-            // 3. Use the `set` functions defined above to update the `articles` and `featuredArticle` variables
+            const articlesResponse = await fetch('/api/news/get-newsfeed', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-            // Once completing you should be able to see news articles different from the dummy data originally provided.
+            const featuredArticleResponse = await fetch('/api/news/get-featured-article', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-            // Hint: this may be useful to figure how to fetch data: https://medium.com/@bhanu.mt.1501/api-calls-in-react-js-342a09d5315f
+
+            setArticles(await articlesResponse.json());
+            setFeaturedArticle(await featuredArticleResponse.json());
         }
         fetchData();
     }, [])
+
 
     return (
         <div>
